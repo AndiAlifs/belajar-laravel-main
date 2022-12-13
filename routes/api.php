@@ -62,7 +62,7 @@ Route::prefix('v1')->group(function () {
         Route::post('/login', [AuthController::class, 'login']);
         Route::post('/logout', [AuthController::class, 'logout']);
         Route::get('/profile', [AuthController::class, 'profile'])->middleware(['auth.api']);
-        Route::get('/csrf', [AuthController::class, 'csrf'])->middleware(['web']);
+        Route::get('/csrf', [AuthController::class, 'csrf'])->middleware(['web','cors']);
     });
 });
 

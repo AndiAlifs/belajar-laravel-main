@@ -14,7 +14,7 @@ export const environment = {
         appId: '1:426951655222:web:5373aa328f1a45ca6d3d97',
         measurementId: 'G-B9XTTKCW55',
     },
-    apiURL: 'http://localhost/api'
+    apiURL: 'http://127.0.0.1:8000/api'
 };
 
 /*

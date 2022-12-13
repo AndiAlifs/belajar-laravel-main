@@ -22,7 +22,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
     ];
-
+    
     /**
      * The application's route middleware groups.
      *
@@ -38,11 +38,12 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
-
+        
         'api' => [
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            // \Barryvdh\Cors\HandleCors::class
         ],
     ];
 
@@ -74,5 +75,8 @@ class Kernel extends HttpKernel
 
         // Profiler
         'profiler' => \App\Http\Middleware\ProfileJsonResponse::class,
+
+        // cors
+        'cors' => \App\Http\Middleware\Cors::class,
     ];
 }

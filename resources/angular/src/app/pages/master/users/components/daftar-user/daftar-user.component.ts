@@ -17,6 +17,7 @@ export class DaftarUserComponent implements OnInit {
     titleModal: string;
     modelId: number;
     findUser: string;
+    findEmail: string;
 
     constructor(
         private userService: UserService,
@@ -34,6 +35,7 @@ export class DaftarUserComponent implements OnInit {
 
     getUser() {
         this.findUser = '';
+        this.findEmail = '';
         this.userService.getUsers([]).subscribe((res: any) => {
             this.listUser = res.data.list;
         }, (err: any) => {
@@ -80,21 +82,17 @@ export class DaftarUserComponent implements OnInit {
         });
     }
 
-    findUserByNama() {
-        console.log(this.findUser);
+    findUserByFilter() {
         this.cariUser = [];
-        
-        if (this.findUser == '') {
-            this.getUser();
-        } else {
-            if (this.listUser.length > 0) {
-                this.listUser.forEach((element: any) => {
-                    if (element.nama.toLowerCase().includes(this.findUser.toLowerCase())) {
-                        this.cariUser.push(element);
-                    } 
-                });
-            }
-            this.listUser = this.cariUser;
-        }
+        this.userService.getUsers({
+            nama: this.findUser,
+            email: this.findEmail
+        }).subscribe((res: any) => {
+            console.log("Res dari get");
+            console.log(res);
+            this.listUser = res.data.list;
+        }, (err: any) => {
+            console.log(err);
+        });
     }
 }

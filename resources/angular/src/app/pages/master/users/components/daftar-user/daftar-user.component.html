@@ -73,10 +73,18 @@
     </div>
     <div class="modal-body">
         <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Nama</label>
             <div class="col">
-                <input type="text" [(ngModel)]="findUser" (change)="findUserByNama()" class="form-control" placeholder="Masukkan nama">
+                <input type="text" [(ngModel)]="findUser" (change)="findUserByFilter()" class="form-control" placeholder="Masukkan nama">
             </div>
         </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Email</label>
+            <div class="col">
+                <input type="text" [(ngModel)]="findEmail" (change)="findUserByFilter()" class="form-control" placeholder="Masukkan Email">
+            </div>
+        </div>
+
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="getUser(); modal.close()">Reset</button>

@@ -66,9 +66,9 @@ export class FormUserComponent implements OnInit {
     }
 
     save() {
+        // set akses id
+        this.formModel.user_roles_id = this.formModel.akses.id; 
         if(this.mode == 'add') {
-            // set akses id
-            this.formModel.user_roles_id = this.formModel.akses.id; 
 
             console.log(this.formModel);
             if (this.fileToUpload != null) {

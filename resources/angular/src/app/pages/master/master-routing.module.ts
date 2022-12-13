@@ -4,12 +4,14 @@ import { DaftarCustomerComponent } from './customers/components/daftar-customer/
 import { DaftarItemComponent } from './items/components/daftar-item/daftar-item.component';
 import { DaftarRolesComponent } from './roles/components/daftar-roles/daftar-roles.component';
 import { DaftarUserComponent } from './users/components/daftar-user/daftar-user.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
     { path: 'users', component: DaftarUserComponent },
     { path: 'roles', component: DaftarRolesComponent },
     { path: 'customers', component: DaftarCustomerComponent },
     { path: 'items', component: DaftarItemComponent },
+    { path: 'profile', component: ProfileComponent },
 ];
 
 @NgModule({

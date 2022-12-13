@@ -61,6 +61,19 @@ class UserController extends Controller
         return response()->success(new UserResource($dataUser['data']), 'Data user berhasil disimpan');
     }
 
+
+    public function upload_foto(Request $request)
+    {
+        $file = $request->file('foto');
+        $nama_file = time()."_".$file->getClientOriginalName();
+        $tujuan_upload = 'upload/foto_user/';
+        if ($file->move($tujuan_upload,$nama_file)) {
+            return response()->success($nama_file, 'Foto berhasil diupload');
+        } else {
+            return response()->failed(['Foto gagal diupload']);
+        }
+    }
+
     /**
      * Menampilkan user secara spesifik dari tabel user_auth
      *

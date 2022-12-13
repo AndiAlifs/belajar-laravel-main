@@ -16,7 +16,7 @@ export class LandaService {
 
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void { }
 
     /**
      * Request GET
@@ -35,18 +35,25 @@ export class LandaService {
         return this.http.post(this.apiURL + path, payloads, reqHeader);
     }
 
+    uploadFile(path, payloads = {}) {
+        const reqHeader = new HttpHeaders({
+            'Content-Type': 'multipart/form-data'
+        });
+        return this.http.post(this.apiURL + path, payloads,{headers: reqHeader});
+    }
+
     /**
      * Request PUT
      */
-     DataPut(path, payloads = {}) {
+    DataPut(path, payloads = {}) {
         const reqHeader = this.httpOptions;
         return this.http.put(this.apiURL + path, payloads, reqHeader);
     }
 
-     /**
-     * Request DELETE
-     */
-      DataDelete(path, payloads = {}) {
+    /**
+    * Request DELETE
+    */
+    DataDelete(path, payloads = {}) {
         return this.http.delete(this.apiURL + path, {
             params: payloads,
         });
@@ -55,12 +62,12 @@ export class LandaService {
     /**
      * Sweet alert Sukses
      */
-     alertSuccess(title, content, timer = 3.5) {
+    alertSuccess(title, content, timer = 3.5) {
         Swal.fire({
             title,
             text: content,
             icon: 'success',
-            timer: timer*1000,
+            timer: timer * 1000,
             showConfirmButton: true,
         });
     }
@@ -73,7 +80,7 @@ export class LandaService {
             title,
             text: content,
             icon: 'warning',
-            timer: timer*1000,
+            timer: timer * 1000,
             showConfirmButton: true,
         });
     }
@@ -81,12 +88,12 @@ export class LandaService {
     /**
      * Sweet alert info
      */
-     alertInfo(title, content, timer = 3.5) {
+    alertInfo(title, content, timer = 3.5) {
         Swal.fire({
             title,
             text: content,
             icon: 'info',
-            timer: timer*1000,
+            timer: timer * 1000,
             showConfirmButton: true,
         });
     }

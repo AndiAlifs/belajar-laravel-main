@@ -25,6 +25,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/users', [UserController::class, 'index'])->middleware(['web', 'auth.api:user_view']);
     Route::get('/users/{id}', [UserController::class, 'show'])->middleware(['web', 'auth.api:user_view']);
     Route::post('/users', [UserController::class, 'store'])->middleware(['web', 'auth.api:user_create']);
+    Route::post('/upload_foto', [UserController::class, 'upload_foto']);
     Route::put('/users', [UserController::class, 'update'])->middleware(['web', 'auth.api:user_update']);
     Route::delete('/users/{id}', [UserController::class, 'destroy'])->middleware(['web', 'auth.api:user_delete']);
 

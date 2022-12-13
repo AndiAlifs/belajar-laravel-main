@@ -76,7 +76,7 @@ class UserHelper implements CrudInterface
                  * Parameter kedua ("gcs") digunakan untuk upload ke Google Cloud Service
                  * jika mau upload di server local, maka tidak usah pakai parameter kedua
                  */
-                $foto = $payload['foto']->store('upload/fotoUser', 'gcs');
+                $foto = $payload['foto']->store('upload/foto_user');
                 $payload['foto'] = $foto;
             }
             

@@ -14,6 +14,7 @@ export class FormUserComponent implements OnInit {
     @Output() afterSave  = new EventEmitter<boolean>();
     mode: string;
     listAkses: [];
+    fileToUpload: File = null;
     formModel : {
         id: number,
         nama: string,
@@ -64,6 +65,16 @@ export class FormUserComponent implements OnInit {
 
     save() {
         if(this.mode == 'add') {
+            if (this.fileToUpload != null) {
+                this.userService.uploadFoto({
+                    foto: this.fileToUpload
+                }).subscribe((res: any) => {
+                    this.formModel.foto = res.data;
+                }, err => {
+                    console.log("Gambar gagal diupload");
+                    console.log(err);
+                });
+            }
             this.userService.createUser(this.formModel).subscribe((res : any) => {
                 this.landaService.alertSuccess('Berhasil', res.message);
                 this.afterSave.emit();
@@ -94,6 +105,11 @@ export class FormUserComponent implements OnInit {
         }, err => {
             console.log(err);
         });
+    }
+
+    onFileChange(event) {
+        this.fileToUpload = event.target.files[0];
+        console.log(this.fileToUpload);
     }
 
 }

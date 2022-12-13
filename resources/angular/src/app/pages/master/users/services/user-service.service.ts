@@ -20,6 +20,10 @@ export class UserService {
         return this.landaService.DataPost('/v1/users', payload);
     }
 
+    uploadFoto(payload){
+        return this.landaService.uploadFile('/v1/upload_foto', payload);
+    }
+
     updateUser(payload) {
         return this.landaService.DataPut('/v1/users', payload);
     }

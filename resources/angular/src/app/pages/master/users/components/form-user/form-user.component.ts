@@ -25,7 +25,8 @@ export class FormUserComponent implements OnInit {
         foto: string,
         fotoUrl: string,
         email: string,
-        password: string
+        password: string,
+        user_roles_id: number
     }
 
     constructor(
@@ -54,7 +55,8 @@ export class FormUserComponent implements OnInit {
             foto: '',
             fotoUrl: '',
             email: '',
-            password: ''
+            password: '',
+            user_roles_id: 0
         }
 
         if (this.userId > 0) {
@@ -65,6 +67,10 @@ export class FormUserComponent implements OnInit {
 
     save() {
         if(this.mode == 'add') {
+            // set akses id
+            this.formModel.user_roles_id = this.formModel.akses.id; 
+
+            console.log(this.formModel);
             if (this.fileToUpload != null) {
                 console.log(this.fileToUpload);
 
@@ -100,6 +106,7 @@ export class FormUserComponent implements OnInit {
     getRole() {
         this.roleService.getRoles([]).subscribe((res: any) => {
             this.listAkses = res.data.list;
+            console.log(this.listAkses);
         }, err => {
             console.log(err);
         })

@@ -17,6 +17,7 @@ export class UserService {
     }
 
     createUser(payload) {
+        console.log(payload);
         return this.landaService.DataPost('/v1/users', payload);
     }
 

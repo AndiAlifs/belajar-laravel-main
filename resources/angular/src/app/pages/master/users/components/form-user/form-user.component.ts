@@ -66,14 +66,20 @@ export class FormUserComponent implements OnInit {
     save() {
         if(this.mode == 'add') {
             if (this.fileToUpload != null) {
-                this.userService.uploadFoto({
-                    foto: this.fileToUpload
-                }).subscribe((res: any) => {
+                console.log(this.fileToUpload);
+
+                const formData = {
+                    file: this.fileToUpload
+                }
+
+                console.log(formData);
+                this.userService.uploadFoto(formData).subscribe((res: any) => {
                     this.formModel.foto = res.data;
-                }, err => {
-                    console.log("Gambar gagal diupload");
+                }
+                , err => {
                     console.log(err);
-                });
+                }
+                );
             }
             this.userService.createUser(this.formModel).subscribe((res : any) => {
                 this.landaService.alertSuccess('Berhasil', res.message);
@@ -108,8 +114,9 @@ export class FormUserComponent implements OnInit {
     }
 
     onFileChange(event) {
-        this.fileToUpload = event.target.files[0];
-        console.log(this.fileToUpload);
+        if (event.target.files.length > 0) {
+            this.fileToUpload = event.target.files[0];
+        }
     }
 
 }

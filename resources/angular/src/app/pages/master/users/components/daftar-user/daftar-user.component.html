@@ -10,7 +10,7 @@
                         <a href="javascript: void(0);" [routerLink]="['/master/roles']" class="btn btn-sm btn-outline-info mr-2">
                             <i class="fa fa-cogs font-size-14 align-middle mr-1"></i> Hak Akses 
                         </a>
-                        <button  type="button" class="btn btn-sm btn-outline-secondary mr-2">
+                        <button  type="button" class="btn btn-sm btn-outline-secondary mr-2" (click)="pencarianUser(formPencari)">
                             <i class="fa fa-search font-size-14 align-middle mr-1"></i> Pencarian 
                         </button>
                         <button type="button" class="btn btn-sm btn-primary mr-2" (click)="createUser(formUser)">
@@ -61,5 +61,25 @@
     </div>
     <div class="modal-body">
         <user-form [userId]="modelId" (afterSave)="modal.close(); getUser()"></user-form>
+    </div>
+</ng-template>
+
+<ng-template #formPencari let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title mt-0">Pencarian Pengguna</h5>
+        <button type="button" class="close" (click)="modal.close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group row">
+            <div class="col">
+                <input type="text" [(ngModel)]="findUser" (change)="findUserByNama()" class="form-control" placeholder="Masukkan nama">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="getUser(); modal.close()">Reset</button>
+        <button type="button" class="btn btn-secondary" (click)="modal.close(); modal.close()">Cari</button>
     </div>
 </ng-template>

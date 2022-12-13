@@ -13,8 +13,10 @@ import { UserService } from '../../services/user-service.service';
 export class DaftarUserComponent implements OnInit {
 
     listUser: [];
+    cariUser: any;
     titleModal: string;
     modelId: number;
+    findUser: string;
 
     constructor(
         private userService: UserService,
@@ -31,6 +33,7 @@ export class DaftarUserComponent implements OnInit {
     }
 
     getUser() {
+        this.findUser = '';
         this.userService.getUsers([]).subscribe((res: any) => {
             this.listUser = res.data.list;
         }, (err: any) => {
@@ -40,6 +43,12 @@ export class DaftarUserComponent implements OnInit {
 
     createUser(modal) {
         this.titleModal = 'Tambah User';
+        this.modelId = 0;
+        this.modalService.open(modal, { size: 'lg', backdrop: 'static' });
+    }
+
+    pencarianUser(modal) {
+        this.titleModal = 'Pencarian User';
         this.modelId = 0;
         this.modalService.open(modal, { size: 'lg', backdrop: 'static' });
     }
@@ -69,5 +78,23 @@ export class DaftarUserComponent implements OnInit {
                 });
             }
         });
+    }
+
+    findUserByNama() {
+        console.log(this.findUser);
+        this.cariUser = [];
+        
+        if (this.findUser == '') {
+            this.getUser();
+        } else {
+            if (this.listUser.length > 0) {
+                this.listUser.forEach((element: any) => {
+                    if (element.nama.toLowerCase().includes(this.findUser.toLowerCase())) {
+                        this.cariUser.push(element);
+                    } 
+                });
+            }
+            this.listUser = this.cariUser;
+        }
     }
 }

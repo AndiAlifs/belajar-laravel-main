@@ -36,10 +36,8 @@ export class LandaService {
     }
 
     uploadFile(path, payloads = {}) {
-        const reqHeader = new HttpHeaders({
-            'Content-Type': 'multipart/form-data'
-        });
-        return this.http.post(this.apiURL + path, payloads,{headers: reqHeader});
+        const reqHeader = this.httpOptions;
+        return this.http.post(this.apiURL + path, payloads, reqHeader);
     }
 
     /**

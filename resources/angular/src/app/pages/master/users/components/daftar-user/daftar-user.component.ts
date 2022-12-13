@@ -13,12 +13,21 @@ import { UserService } from '../../services/user-service.service';
 export class DaftarUserComponent implements OnInit {
 
     listUser: [];
-    cariUser: any;
     titleModal: string;
     modelId: number;
     findUser: string;
     findEmail: string;
 
+    pageNow: number = 1;
+    nextPage: number;
+    prevPage: number;
+    totalPage: number;
+    totalData: number;
+
+    paginationStatus: boolean = false;
+    paginationStatusNext: boolean = false;
+    paginationStatusPrev: boolean = false;
+    
     constructor(
         private userService: UserService,
         private landaService: LandaService,
@@ -27,6 +36,14 @@ export class DaftarUserComponent implements OnInit {
 
     ngOnInit(): void {
         this.getUser();
+        console.log({
+            page: this.pageNow,
+            totalPage: this.totalPage,
+            paginationStatus: this.paginationStatus,
+            prevPage: this.paginationStatusPrev,
+            nextPage: this.paginationStatusNext
+        });
+
     }
 
     trackByIndex(index: number): any {
@@ -36,11 +53,34 @@ export class DaftarUserComponent implements OnInit {
     getUser() {
         this.findUser = '';
         this.findEmail = '';
-        this.userService.getUsers([]).subscribe((res: any) => {
+        this.userService.getUsers({
+            page: this.pageNow
+        }).subscribe((res: any) => {
             this.listUser = res.data.list;
+            this.totalPage = res.data.meta.links.length;
+            this.totalData = res.data.meta.total;
         }, (err: any) => {
             console.log(err);
         });
+    }
+
+    nextPageUser() {
+        this.pageNow = this.pageNow + 1;
+        if (this.pageNow == this.totalPage) {
+            this.paginationStatusNext = false;
+        }
+        if (this.pageNow > 1) {
+            this.paginationStatusPrev = true;
+        }
+        this.getUser();
+    }
+
+    prevPageUser() {
+        this.pageNow = this.pageNow - 1;
+        if (this.pageNow == 1) {
+            this.paginationStatusPrev = false;
+        }
+        this.getUser();
     }
 
     createUser(modal) {
@@ -83,13 +123,10 @@ export class DaftarUserComponent implements OnInit {
     }
 
     findUserByFilter() {
-        this.cariUser = [];
         this.userService.getUsers({
             nama: this.findUser,
             email: this.findEmail
         }).subscribe((res: any) => {
-            console.log("Res dari get");
-            console.log(res);
             this.listUser = res.data.list;
         }, (err: any) => {
             console.log(err);

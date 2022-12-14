@@ -13,7 +13,7 @@
                                 <div class="form-group mb-3">
                                     <label class="form-label f-label" for="email">Password</label>
                                     <div class="input-group">
-                                        <input class="form-control form-control-lg" type="password" id="password" placeholder="Kosongkan Jika Tidak Diganti">
+                                        <input [(ngModel)]="this.passwordModel.password" name="password" class="form-control form-control-lg" type="password" id="password" placeholder="Kosongkan Jika Tidak Diganti">
                                             <div class="input-group-text -prepend">
                                                 <span id="icon-password" class="btn-show-pass" style="cursor: pointer;">
                                                     <i class="fa fa-eye-slash icon" id="password" data-id="password"></i>
@@ -24,7 +24,7 @@
                                     <div class="form-group mb-3">
                                         <label class="form-label f-label" for="email">Confirm Password</label>
                                         <div class="input-group">
-                                            <input class="form-control form-control-lg" type="password" id="confirm-password">
+                                            <input [(ngModel)]="this.passwordModel.password_confirmation" name="password_confirmation" class="form-control form-control-lg" type="password" id="confirm-password">
                                                 <div class="input-group-text -prepend">
                                                     <span class="btn-show-pass" style="cursor: pointer;">
                                                         <i class="fa fa-eye-slash icon" id="confirm-password" data-id="confirm-password"></i>

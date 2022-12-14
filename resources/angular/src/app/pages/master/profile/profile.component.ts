@@ -14,7 +14,7 @@ export class ProfileComponent implements OnInit {
     fileToUpload: File;
     listAkses = [];
 
-    formModel : {
+    formModel: {
         id: number,
         nama: string,
         email: string,
@@ -23,7 +23,12 @@ export class ProfileComponent implements OnInit {
         akses: any
     }
 
-    aksesModel ={
+    passwordModel = {
+        password: '',
+        password_confirmation: ''
+    }
+
+    aksesModel = {
         id: 0,
         nama: '',
     }
@@ -56,27 +61,37 @@ export class ProfileComponent implements OnInit {
         this.fileToUpload = event.target.files[0];
     }
 
-    submit() {
-        this.formModel = {
-            id: this.userLogin.id,
-            nama: this.userLogin.nama,
-            email: this.userLogin.email,
-            password: this.userLogin.password,
-            user_roles_id: this.aksesModel.id,
-            akses : this.aksesModel
+    checkPassword() {
+        if (this.passwordModel.password != this.passwordModel.password_confirmation) {
+            this.landaService.alertError('Error', 'Password tidak sama');
+            return false;
+        } else {
+            return true;
         }
-        this.userService.updateUser(this.formModel).subscribe(
-            (res: any) => {
-                this.authService.getProfile().subscribe(
-                    (res: any) => {
-                        this.userLogin = res;
-                    }
-                );
-                this.landaService.alertSuccess('Berhasil', res.message);
-            }, (err: any) => {
-                this.landaService.alertError('Error', err.error.message);
-            }
-        );
+    }
 
+    submit() {
+        if (this.checkPassword() == true) {
+            this.formModel = {
+                id: this.userLogin.id,
+                nama: this.userLogin.nama,
+                email: this.userLogin.email,
+                password: this.userLogin.password,
+                user_roles_id: this.aksesModel.id,
+                akses: this.aksesModel
+            }
+            this.userService.updateUser(this.formModel).subscribe(
+                (res: any) => {
+                    this.authService.getProfile().subscribe(
+                        (res: any) => {
+                            this.userLogin = res;
+                        }
+                    );
+                    this.landaService.alertSuccess('Berhasil', res.message);
+                }, (err: any) => {
+                    this.landaService.alertError('Error', err.error.message);
+                }
+            );
+        }
     }
 }

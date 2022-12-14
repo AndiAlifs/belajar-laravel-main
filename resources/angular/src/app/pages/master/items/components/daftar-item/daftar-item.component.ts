@@ -17,6 +17,17 @@ export class DaftarItemComponent implements OnInit {
     modelId: number;
     isOpenForm: boolean = false;
 
+    pagination = {
+        status : false,
+        nextStatus : false,
+        prevStatus : false,
+        nowPage: 1,
+        totalPage: 0,
+        totalData: 0,
+        nextPage: 0,
+        prevPage: 0,
+    }
+
     constructor(
         private itemService: ItemService,
         private landaService: LandaService,
@@ -32,11 +43,49 @@ export class DaftarItemComponent implements OnInit {
     }
 
     getItem() {
-        this.itemService.getItems([]).subscribe((res: any) => {
+        this.itemService.getItems({
+            page: this.pagination.nowPage
+        }).subscribe((res: any) => {
             this.listItems = res.data.list;
+            this.pagination.totalData = res.data.meta.total;
+            this.pagination.totalPage = res.data.meta.links.length;
+            
+            if (this.pagination.totalPage > 1) {
+                this.pagination.status = true;
+                this.pagination.nextStatus = true;
+                this.pagination.nextPage = this.pagination.nowPage + 1;
+            }
+
+            console.log(this.pagination);
         }, (err: any) => {
             console.log(err);
         });
+    }
+
+    nextPage() {
+        this.pagination.prevStatus = true;
+        this.pagination.nowPage = this.pagination.nextPage;
+        this.pagination.nextPage = this.pagination.nowPage + 1;
+        this.pagination.prevPage = this.pagination.nowPage - 1;
+
+        if (this.pagination.nowPage == this.pagination.totalPage) {
+            this.pagination.nextStatus = false;
+        }
+
+        this.getItem();
+    }
+
+    prevPage() {
+        this.pagination.nextStatus = true;
+        this.pagination.nowPage = this.pagination.prevPage;
+        this.pagination.nextPage = this.pagination.nowPage + 1;
+        this.pagination.prevPage = this.pagination.nowPage - 1;
+
+        if (this.pagination.nowPage == 1) {
+            this.pagination.prevStatus = false;
+        }
+
+        this.getItem();
     }
 
     showForm(show) {

@@ -42,6 +42,10 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="card-footer d-flex justify-content-between" *ngIf="this.pagination.status">
+                    <button class="btn btn-primary" (click)="prevPage()" *ngIf="this.pagination.prevStatus">Sebelumnya</button>
+                    <button class="btn btn-primary" style="margin-left: auto;" (click)="nextPage()" *ngIf="this.pagination.nextStatus">Selanjutnya</button>
+                </div>
             </div>
         </div>
     </div>

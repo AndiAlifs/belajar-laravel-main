@@ -1,1 +1,58 @@
-<p>profile works!</p>
+<div class="container-fluid">
+    <form>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group mb-3">
+                            <label class="text-bold">Nama</label>
+                            <input [(ngModel)]="this.userLogin.nama" type="text" name="nama" class="form-control" placeholder="Nama Pengguna"></div>
+                            <div class="form-group mb-3">
+                                <label class="text-bold">Email</label>
+                                <input [(ngModel)]="this.userLogin.email" type="email" name="email" class="form-control" placeholder="Email Pengguna"></div>
+                                <div class="form-group mb-3">
+                                    <label class="form-label f-label" for="email">Password</label>
+                                    <div class="input-group">
+                                        <input class="form-control form-control-lg" type="password" id="password" placeholder="Kosongkan Jika Tidak Diganti">
+                                            <div class="input-group-text -prepend">
+                                                <span id="icon-password" class="btn-show-pass" style="cursor: pointer;">
+                                                    <i class="fa fa-eye-slash icon" id="password" data-id="password"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label class="form-label f-label" for="email">Confirm Password</label>
+                                        <div class="input-group">
+                                            <input class="form-control form-control-lg" type="password" id="confirm-password">
+                                                <div class="input-group-text -prepend">
+                                                    <span class="btn-show-pass" style="cursor: pointer;">
+                                                        <i class="fa fa-eye-slash icon" id="confirm-password" data-id="confirm-password"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="text-bold">Hak Akses</label>
+                                            <ng-select [(ngModel)]="this.aksesModel" [items]="listAkses" bindLabel="nama" placeholder="Pilih Hak Akses" name="akses" appendTo="body"></ng-select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary" (click)="submit()">Simpan</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="container">
+                                            <img src="{{this.userLogin.fotoUrl}}" style="width: 100%;"></div>
+                                            <div class="form-group">
+                                                <label class="text-bold">Upload Foto</label>
+                                                <br>
+                                                    <input type="file" name="foto" class="form-control" (change)="onFileChange($event)">
+                                                        <small class="form-text text-muted">Ukuran maksimal 2MB</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>

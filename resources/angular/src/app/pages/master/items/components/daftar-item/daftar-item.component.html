@@ -29,7 +29,7 @@
                             <tr *ngFor="let val of listItems; index as i; trackBy:trackByIndex">
                                 <td class="vertical-middle">{{val.nama}}</td>
                                 <td class="vertical-middle">{{val.kategori}}</td>
-                                <td class="vertical-middle">{{val.harga | currency}}</td>
+                                <td class="vertical-middle">{{val.harga | currency:'IDR'}}</td>
                                 <td class="vertical-middle text-right">
                                     <a href="javascript: void(0);" class="align-middle mr-2" (click)="updateItem(val)" placement="left" container="body" ngbTooltip="Ubah">
                                         <i class="fa fa-edit font-size-14"></i>

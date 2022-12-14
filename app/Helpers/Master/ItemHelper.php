@@ -46,7 +46,7 @@ class ItemHelper implements CrudInterface
      */
     public function getById(int $id): object
     {
-        return $this->itemModel->getById(($id));
+        return $this->itemModel->getById($id);
     }
 
     /**
@@ -108,7 +108,7 @@ class ItemHelper implements CrudInterface
             unset($payload['detail']);
         
             $updateItem = $this->itemModel->edit($payload, $id);
-            $dataItem = $this->getById($updateItem);
+            $dataItem = $this->getById($id);
 
             // Simpan detail item
             if (!empty($detailItem)) {

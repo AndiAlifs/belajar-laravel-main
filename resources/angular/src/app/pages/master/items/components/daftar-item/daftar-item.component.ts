@@ -55,8 +55,6 @@ export class DaftarItemComponent implements OnInit {
                 this.pagination.nextStatus = true;
                 this.pagination.nextPage = this.pagination.nowPage + 1;
             }
-
-            console.log(this.pagination);
         }, (err: any) => {
             console.log(err);
         });

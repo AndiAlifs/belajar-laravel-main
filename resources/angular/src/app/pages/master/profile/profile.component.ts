@@ -59,6 +59,21 @@ export class ProfileComponent implements OnInit {
 
     onFileChange(event) {
         this.fileToUpload = event.target.files[0];
+        console.log(this.fileToUpload);
+
+        const formData = {
+            foto: this.fileToUpload
+        }
+
+        console.log(formData);
+        
+        this.userService.uploadFoto(formData).subscribe(
+            (res: any) => {
+                console.log(res);
+            }, (err: any) => {
+                console.log(err);
+            }
+        );
     }
 
     checkPassword() {

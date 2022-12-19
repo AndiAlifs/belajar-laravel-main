@@ -16,6 +16,7 @@ import { LayoutsModule } from './layouts/layouts.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthService } from './pages/auth/services/auth.service';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 initFirebaseBackend(environment.firebaseConfig);
 
@@ -29,6 +30,7 @@ initFirebaseBackend(environment.firebaseConfig);
         LayoutsModule,
         AppRoutingModule,
         HttpClientModule,
+        NgxPaginationModule,
     ],
     providers: [
         AsyncPipe,

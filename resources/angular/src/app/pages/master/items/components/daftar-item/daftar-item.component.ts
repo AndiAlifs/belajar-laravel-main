@@ -18,14 +18,8 @@ export class DaftarItemComponent implements OnInit {
     isOpenForm: boolean = false;
 
     pagination = {
-        status : false,
-        nextStatus : false,
-        prevStatus : false,
         nowPage: 1,
-        totalPage: 0,
         totalData: 0,
-        nextPage: 0,
-        prevPage: 0,
     }
 
     constructor(
@@ -48,43 +42,11 @@ export class DaftarItemComponent implements OnInit {
         }).subscribe((res: any) => {
             this.listItems = res.data.list;
             this.pagination.totalData = res.data.meta.total;
-            this.pagination.totalPage = res.data.meta.links.length;
-            
-            if (this.pagination.totalPage > 1) {
-                this.pagination.status = true;
-                this.pagination.nextStatus = true;
-                this.pagination.nextPage = this.pagination.nowPage + 1;
-            }
         }, (err: any) => {
             console.log(err);
         });
     }
 
-    nextPage() {
-        this.pagination.prevStatus = true;
-        this.pagination.nowPage = this.pagination.nextPage;
-        this.pagination.nextPage = this.pagination.nowPage + 1;
-        this.pagination.prevPage = this.pagination.nowPage - 1;
-
-        if (this.pagination.nowPage == this.pagination.totalPage) {
-            this.pagination.nextStatus = false;
-        }
-
-        this.getItem();
-    }
-
-    prevPage() {
-        this.pagination.nextStatus = true;
-        this.pagination.nowPage = this.pagination.prevPage;
-        this.pagination.nextPage = this.pagination.nowPage + 1;
-        this.pagination.prevPage = this.pagination.nowPage - 1;
-
-        if (this.pagination.nowPage == 1) {
-            this.pagination.prevStatus = false;
-        }
-
-        this.getItem();
-    }
 
     showForm(show) {
         this.isOpenForm = show;
@@ -121,6 +83,12 @@ export class DaftarItemComponent implements OnInit {
                 });
             }
         });
+    }
+
+    onPaginationChange(event) {
+        console.log(event);
+        this.pagination.nowPage = event;
+        this.getItem();
     }
 
 }

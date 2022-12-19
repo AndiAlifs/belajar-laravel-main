@@ -26,7 +26,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let val of listItems; index as i; trackBy:trackByIndex">
+                            <tr *ngFor="let val of listItems | paginate: {
+                                itemsPerPage: 5,
+                                currentPage: this.pagination.nowPage,
+                                totalItems: this.pagination.totalData
+                            }; index as i; trackBy:trackByIndex">
                                 <td class="vertical-middle">{{val.nama}}</td>
                                 <td class="vertical-middle">{{val.kategori}}</td>
                                 <td class="vertical-middle">{{val.harga | currency:'IDR'}}</td>
@@ -42,9 +46,8 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="card-footer d-flex justify-content-between" *ngIf="this.pagination.status">
-                    <button class="btn btn-primary" (click)="prevPage()" *ngIf="this.pagination.prevStatus">Sebelumnya</button>
-                    <button class="btn btn-primary" style="margin-left: auto;" (click)="nextPage()" *ngIf="this.pagination.nextStatus">Selanjutnya</button>
+                <div class="card-footer d-flex justify-content-center">
+                    <pagination-controls [responsive]="true" (pageChange)="onPaginationChange($event)" [autoHide]="true"></pagination-controls>
                 </div>
             </div>
         </div>

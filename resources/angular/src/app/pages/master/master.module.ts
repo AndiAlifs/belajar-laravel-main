@@ -21,6 +21,7 @@ import { FormItemComponent } from './items/components/form-item/form-item.compon
 import { DaftarItemComponent } from './items/components/daftar-item/daftar-item.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DiskonComponent } from './diskon/diskon.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { DiskonComponent } from './diskon/diskon.component';
         NgbModalModule,
         NgSelectModule,
         FormsModule,
-        DataTablesModule
+        DataTablesModule,
+        NgxPaginationModule
     ]
 })
 export class MasterModule { }

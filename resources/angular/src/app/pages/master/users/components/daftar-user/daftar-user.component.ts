@@ -18,15 +18,11 @@ export class DaftarUserComponent implements OnInit {
     findUser: string;
     findEmail: string;
 
-    pageNow: number = 1;
-    nextPage: number;
-    prevPage: number;
-    totalPage: number;
-    totalData: number;
+    pagination = {
+        nowPage: 1,
+        totalData: 0,
+    }
 
-    paginationStatus: boolean = false;
-    paginationStatusNext: boolean = false;
-    paginationStatusPrev: boolean = false;
     
     constructor(
         private userService: UserService,
@@ -36,13 +32,6 @@ export class DaftarUserComponent implements OnInit {
 
     ngOnInit(): void {
         this.getUser();
-        console.log({
-            page: this.pageNow,
-            totalPage: this.totalPage,
-            paginationStatus: this.paginationStatus,
-            prevPage: this.paginationStatusPrev,
-            nextPage: this.paginationStatusNext
-        });
 
     }
 
@@ -54,33 +43,13 @@ export class DaftarUserComponent implements OnInit {
         this.findUser = '';
         this.findEmail = '';
         this.userService.getUsers({
-            page: this.pageNow
+            page: this.pagination.nowPage,
         }).subscribe((res: any) => {
             this.listUser = res.data.list;
-            this.totalPage = res.data.meta.links.length;
-            this.totalData = res.data.meta.total;
+            this.pagination.totalData = res.data.meta.total;
         }, (err: any) => {
             console.log(err);
         });
-    }
-
-    nextPageUser() {
-        this.pageNow = this.pageNow + 1;
-        if (this.pageNow == this.totalPage) {
-            this.paginationStatusNext = false;
-        }
-        if (this.pageNow > 1) {
-            this.paginationStatusPrev = true;
-        }
-        this.getUser();
-    }
-
-    prevPageUser() {
-        this.pageNow = this.pageNow - 1;
-        if (this.pageNow == 1) {
-            this.paginationStatusPrev = false;
-        }
-        this.getUser();
     }
 
     createUser(modal) {
@@ -131,5 +100,10 @@ export class DaftarUserComponent implements OnInit {
         }, (err: any) => {
             console.log(err);
         });
+    }
+
+    onPaginationChange(page) {
+        this.pagination.nowPage = page;
+        this.getUser();
     }
 }

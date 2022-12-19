@@ -30,7 +30,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let val of listUser; index as i; trackBy:trackByIndex">
+                            <tr *ngFor="let val of listUser | paginate: {
+                                itemsPerPage: 5,
+                                currentPage: this.pagination.nowPage,
+                                totalItems: this.pagination.totalData
+                            }; index as i; trackBy:trackByIndex">
                                 <td><img src="{{val.fotoUrl}}" class="rounded-circle img-thumb"></td>
                                 <td class="vertical-middle">{{val.nama}}</td>
                                 <td class="vertical-middle">{{val.email}}</td>
@@ -47,10 +51,8 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="card-footer d-flex justify-content-between" >
-                    <button type="button" class="btn btn-primary" (click)="prevPageUser()" >Sebelumnya</button>
-                    <span style="font-weight:bold"> Total Data : {{totalData}}</span>
-                    <button type="button" class="btn btn-primary" (click)="nextPageUser()" >Selanjutnya</button>
+                <div class="card-footer d-flex justify-content-center" >
+                    <pagination-controls [responsive]="true" (pageChange)="onPaginationChange($event)" [autoHide]="true"></pagination-controls>
                 </div>
             </div>
         </div>

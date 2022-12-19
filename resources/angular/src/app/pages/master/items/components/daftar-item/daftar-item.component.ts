@@ -17,10 +17,12 @@ export class DaftarItemComponent implements OnInit {
     modelId: number;
     isOpenForm: boolean = false;
 
+    findItem: string = '';
+
     pagination = {
         nowPage: 1,
         totalData: 0,
-    }
+    };
 
     constructor(
         private itemService: ItemService,
@@ -47,9 +49,23 @@ export class DaftarItemComponent implements OnInit {
         });
     }
 
+    findItemByFilter() {
+        this.itemService.getItems({
+            nama: this.findItem
+        }).subscribe((res: any) => {
+            this.listItems = res.data.list;
+        },(err: any) => {
+            console.log(err);
+            }
+        );
+    }
 
     showForm(show) {
         this.isOpenForm = show;
+    }
+
+    showModal(modal) {
+        this.modalService.open(modal, { size: 'lg', backdrop: 'static' });
     }
 
     createItem() {

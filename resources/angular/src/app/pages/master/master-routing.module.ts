@@ -5,6 +5,7 @@ import { DaftarItemComponent } from './items/components/daftar-item/daftar-item.
 import { DaftarRolesComponent } from './roles/components/daftar-roles/daftar-roles.component';
 import { DaftarUserComponent } from './users/components/daftar-user/daftar-user.component';
 import { ProfileComponent } from './profile/profile.component';
+import { DiskonComponent } from './diskon/diskon.component';
 
 const routes: Routes = [
     { path: 'users', component: DaftarUserComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
     { path: 'customers', component: DaftarCustomerComponent },
     { path: 'items', component: DaftarItemComponent },
     { path: 'profile', component: ProfileComponent },
+    { path: 'diskon', component: DiskonComponent }
 ];
 
 @NgModule({

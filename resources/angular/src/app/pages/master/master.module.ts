@@ -20,10 +20,11 @@ import { FormCustomerComponent } from './customers/components/form-customer/form
 import { FormItemComponent } from './items/components/form-item/form-item.component';
 import { DaftarItemComponent } from './items/components/daftar-item/daftar-item.component';
 import { ProfileComponent } from './profile/profile.component';
+import { DiskonComponent } from './diskon/diskon.component';
 
 
 @NgModule({
-    declarations: [DaftarUserComponent, FormUserComponent, DaftarRolesComponent, FormRolesComponent, DaftarCustomerComponent, FormCustomerComponent, FormItemComponent, DaftarItemComponent, ProfileComponent],
+    declarations: [DaftarUserComponent, FormUserComponent, DaftarRolesComponent, FormRolesComponent, DaftarCustomerComponent, FormCustomerComponent, FormItemComponent, DaftarItemComponent, ProfileComponent, DiskonComponent],
     imports: [
         CommonModule,
         MasterRoutingModule,

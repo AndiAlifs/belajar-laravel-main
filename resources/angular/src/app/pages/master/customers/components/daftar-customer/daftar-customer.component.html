@@ -7,7 +7,7 @@
                         Daftar Customer
                     </h1>
                     <div role="group" class="btn-group btn-group-sm btn-group-justified blocks">
-                        <button  type="button" class="btn btn-sm btn-outline-secondary mr-2">
+                        <button  type="button" class="btn btn-sm btn-outline-secondary mr-2" (click)="modalFindCustomer(formPencari)">
                             <i class="fa fa-search font-size-14 align-middle mr-1"></i> Pencarian 
                         </button>
                         <button type="button" class="btn btn-sm btn-primary mr-2" (click)="createCustomer(formCustomer)">
@@ -63,5 +63,26 @@
     </div>
     <div class="modal-body">
         <customer-form [customerId]="modelId" (afterSave)="modal.close(); getCustomer()"></customer-form>
+    </div>
+</ng-template>
+
+<ng-template #formPencari let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title mt-0">{{titleModal}}</h5>
+        <button type="button" class="close" (click)="modal.close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Nama</label>
+            <div class="col">
+                <input type="text" [(ngModel)]="findCustomer" (change)="findCustomerByFilter()" class="form-control" placeholder="Masukkan nama customer">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="getCustomer(); modal.close()">Reset</button>
+        <button type="button" class="btn btn-secondary" (click)="modal.close(); modal.close()">Cari</button>
     </div>
 </ng-template>

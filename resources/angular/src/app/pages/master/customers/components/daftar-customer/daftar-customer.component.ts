@@ -15,6 +15,8 @@ export class DaftarCustomerComponent implements OnInit {
     titleModal: string;
     modelId: number;
 
+    findCustomer: string = '';
+
     pagination = {
         nowPage: 1,
         totalData: 0,
@@ -51,6 +53,21 @@ export class DaftarCustomerComponent implements OnInit {
         this.modalService.open(modal, { size: 'lg', backdrop: 'static' });
     }
 
+    modalFindCustomer(modal) {
+        this.titleModal = 'Cari Customer';
+        this.modelId = 0;
+        this.modalService.open(modal, { size: 'lg', backdrop: 'static' });
+    }
+
+    findCustomerByFilter() {
+        this.customerService.getCustomers({
+            nama: this.findCustomer
+        }).subscribe((res: any) => {
+            this.listCustomer = res.data.list;
+        }, (err: any) => {
+            console.log(err);
+        });
+    }
     updateCustomer(modal, customerModel) {
         this.titleModal = 'Edit Customer: ' + customerModel.nama;
         this.modelId = customerModel.id;

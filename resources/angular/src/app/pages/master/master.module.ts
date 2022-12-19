@@ -22,10 +22,12 @@ import { DaftarItemComponent } from './items/components/daftar-item/daftar-item.
 import { ProfileComponent } from './profile/profile.component';
 import { DiskonComponent } from './diskon/diskon.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { PromoComponent } from './promo/promo.component';
+import { VoucherComponent } from './voucher/voucher.component';
 
 
 @NgModule({
-    declarations: [DaftarUserComponent, FormUserComponent, DaftarRolesComponent, FormRolesComponent, DaftarCustomerComponent, FormCustomerComponent, FormItemComponent, DaftarItemComponent, ProfileComponent, DiskonComponent],
+    declarations: [DaftarUserComponent, FormUserComponent, DaftarRolesComponent, FormRolesComponent, DaftarCustomerComponent, FormCustomerComponent, FormItemComponent, DaftarItemComponent, ProfileComponent, DiskonComponent, PromoComponent, VoucherComponent],
     imports: [
         CommonModule,
         MasterRoutingModule,

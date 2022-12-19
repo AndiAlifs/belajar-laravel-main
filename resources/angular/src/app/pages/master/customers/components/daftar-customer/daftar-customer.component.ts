@@ -15,6 +15,11 @@ export class DaftarCustomerComponent implements OnInit {
     titleModal: string;
     modelId: number;
 
+    pagination = {
+        nowPage: 1,
+        totalData: 0,
+    }
+
     constructor(
         private customerService: CustomerService,
         private landaService: LandaService,
@@ -30,8 +35,11 @@ export class DaftarCustomerComponent implements OnInit {
     }
 
     getCustomer() {
-        this.customerService.getCustomers([]).subscribe((res: any) => {
+        this.customerService.getCustomers({
+            page: this.pagination.nowPage,
+        }).subscribe((res: any) => {
             this.listCustomer = res.data.list;
+            this.pagination.totalData = res.data.meta.total;
         }, (err: any) => {
             console.log(err);
         });
@@ -68,5 +76,10 @@ export class DaftarCustomerComponent implements OnInit {
                 });
             }
         });
+    }
+
+    onPaginationChange(event) {
+        this.pagination.nowPage = event;
+        this.getCustomer();
     }
 }

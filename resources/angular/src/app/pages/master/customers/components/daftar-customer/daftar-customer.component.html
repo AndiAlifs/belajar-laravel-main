@@ -26,7 +26,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let val of listCustomer; index as i; trackBy:trackByIndex">
+                            <tr *ngFor="let val of listCustomer | paginate: {
+                                itemsPerPage: 5,
+                                currentPage: this.pagination.nowPage,
+                                totalItems: this.pagination.totalData
+                            }; index as i; trackBy:trackByIndex">
                                 <td class="vertical-middle">{{val.nama}}</td>
                                 <td class="vertical-middle">{{val.email}}</td>
                                 <td class="vertical-middle">{{val.is_verified_txt}}</td>
@@ -41,6 +45,9 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+                <div class="card-footer d-flex justify-content-center">
+                    <pagination-controls [responsive]="true" (pageChange)="onPaginationChange($event)" [autoHide]="true"></pagination-controls>
                 </div>
             </div>
         </div>

@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\User\AuthController;
 use App\Http\Controllers\Api\User\RoleController;
 use App\Http\Controllers\Api\User\UserController;
 use App\Http\Controllers\Api\Master\CustomerController;
+use App\Http\Controllers\Api\Master\DiskonController;
 use App\Http\Controllers\Api\Master\ItemController;
 use App\Http\Controllers\Api\Master\PromoController;
 use Illuminate\Support\Facades\Route;
@@ -58,6 +59,7 @@ Route::prefix('v1')->group(function () {
     Route::delete('/items/{id}', [ItemController::class, 'destroy'])->middleware(['web', 'auth.api:item_delete']);
 
     Route::post('/promo', [PromoController::class, 'createPromo'])->middleware(['web', 'auth.api:promo_create']);
+    Route::get('/diskon', [DiskonController::class, 'index'])->middleware(['web', 'auth.api:diskon_view']);
 
     /**
      * Route khusus authentifikasi

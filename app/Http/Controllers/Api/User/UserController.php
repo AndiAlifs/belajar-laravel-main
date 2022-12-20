@@ -10,6 +10,7 @@ use App\Http\Resources\User\UserCollection;
 use App\Http\Requests\User\CreateRequest;
 use App\Http\Requests\User\UpdateRequest;
 use App\Http\Resources\User\DetailResource;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -129,5 +130,16 @@ class UserController extends Controller
         }
 
         return response()->success($dataUser, 'Data user telah dihapus');
+    }
+
+    public static function getUserFromId($id)
+    {
+        $table = 'm_user';
+
+        $data = DB::table($table)
+            ->where('id_user', $id)
+            ->first();
+
+        return $data;
     }
 }

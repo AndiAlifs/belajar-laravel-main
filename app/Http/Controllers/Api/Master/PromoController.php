@@ -19,4 +19,28 @@ class PromoController extends Controller
         $promo = PromoModel::where('type', 'discount')->get();
         return $promo;
     }
+
+    public function getPromoById($id)
+    {
+        $promo = PromoModel::find($id);
+        return $promo;
+    }
+
+    public function createPromo(Request $request)
+    {
+        $promo = PromoModel::create($request->all());
+        if ($promo) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Promo berhasil ditambahkan',
+                'data' => $promo
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Promo gagal ditambahkan',
+                'data' => $promo
+            ], 400);
+        }
+    }
 }

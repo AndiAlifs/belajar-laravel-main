@@ -11,5 +11,9 @@ class PromoModel extends Model
 
     protected $table = 'm_promo';
 
+    protected $primaryKey = 'id';
+
+    public $timestamps = false;
+
     protected $guarded = [];
 }

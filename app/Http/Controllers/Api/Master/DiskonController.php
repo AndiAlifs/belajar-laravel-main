@@ -33,8 +33,6 @@ class DiskonController extends Controller
         $returnedData['customer'] = $returnedResult;
         $returnedData['diskon'] = $allAvailableDiskom;
 
-        dd($returnedData);
-
         return response()->json($returnedData);
     }   
 

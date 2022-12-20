@@ -1,1 +1,79 @@
-<p>promo works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h1>
+                        Tambah Promo
+                    </h1>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-md-4 required">Nama</label>
+                                    <div class="col-md-8">
+                                        <input [(ngModel)]="formModel.nama" type="text" name="nama" class="form-control"
+                                            placeholder="Nama Item / Menu">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 required">Type</label>
+                                    <div class="col-md-8">
+                                        <div class="btn-group" role="group" ngbRadioGroup name="kategori" [(ngModel)]="formModel.type">
+                                            <label ngbButtonLabel class="btn-info">
+                                                <input ngbButton type="radio" class="btn-check" value="voucher"> Voucher
+                                            </label>
+                                            <label ngbButtonLabel class="btn-info">
+                                                <input ngbButton type="radio" class="btn-check" value="diskon"> Diskon
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 required">Nominal Voucher</label>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Rp</span>
+                                            </div>
+                                            <input [(ngModel)]="formModel.nominal" type="text" name="harga" class="form-control"
+                                                placeholder="Harga Jual">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 required">Syarat Ketentuan</label>
+                                    <div class="col-md-8">
+                                        <textarea class="form-control" [(ngModel)]="formModel.syarat_ketentuan" name="deskripsi"
+                                            placeholder="Tuliskan detail mengenai item / menu ini" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-4 required">Kadaluarsa</label>
+                                    <div class="col-md-8">
+                                        <select class="form-select form-control" [(ngModel)]="formModel.kadaluarsa" name="kadalursa">
+                                            <option selected value="1">1 Hari</option>
+                                            <option value="3">3 Hari</option>
+                                            <option value="30">30 Hari</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <div class="col-md-12 text-right">
+                                        <button type="button" class="btn btn-primary" (click)="save()">Simpan</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

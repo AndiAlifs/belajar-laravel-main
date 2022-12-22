@@ -20,8 +20,11 @@ export class ProfileComponent implements OnInit {
         email: string,
         password: string,
         user_roles_id: number,
-        akses: any
+        akses: any,
+        fotoUrl: string,
     }
+
+    cardImageBase64: string = null;
 
     passwordModel = {
         password: '',
@@ -40,12 +43,16 @@ export class ProfileComponent implements OnInit {
         private landaService: LandaService
     ) { }
 
-    ngOnInit(): void {
+    getProfile() {
         this.authService.getProfile().subscribe(
             (res: any) => {
                 this.userLogin = res;
             }
         );
+    }
+
+    ngOnInit(): void {
+        this.getProfile();
         this.roleService.getRoles([]).subscribe(
             (res: any) => {
                 this.listAkses = res.data.list;
@@ -57,23 +64,18 @@ export class ProfileComponent implements OnInit {
         );
     }
 
-    onFileChange(event) {
-        this.fileToUpload = event.target.files[0];
-        console.log(this.fileToUpload);
-
-        const formData = {
-            foto: this.fileToUpload
-        }
-
-        console.log(formData);
-        
-        this.userService.uploadFoto(formData).subscribe(
-            (res: any) => {
-                console.log(res);
-            }, (err: any) => {
-                console.log(err);
+    onFileChange($event) {
+        this.fileToUpload = $event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+            const image = new Image();
+            image.src = e.target.result;
+            image.onload = rs => {
+                const imgBase64Path = e.target.result;
+                this.cardImageBase64 = imgBase64Path;
             }
-        );
+        }
+        reader.readAsDataURL(this.fileToUpload);
     }
 
     checkPassword() {
@@ -93,16 +95,13 @@ export class ProfileComponent implements OnInit {
                 email: this.userLogin.email,
                 password: this.userLogin.password,
                 user_roles_id: this.aksesModel.id,
-                akses: this.aksesModel
+                akses: this.aksesModel,
+                fotoUrl: this.cardImageBase64
             }
             this.userService.updateUser(this.formModel).subscribe(
                 (res: any) => {
-                    this.authService.getProfile().subscribe(
-                        (res: any) => {
-                            this.userLogin = res;
-                        }
-                    );
                     this.landaService.alertSuccess('Berhasil', res.message);
+                    window.location.reload();
                 }, (err: any) => {
                     this.landaService.alertError('Error', err.error.message);
                 }

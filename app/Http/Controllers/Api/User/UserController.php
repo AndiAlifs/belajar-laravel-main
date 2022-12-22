@@ -52,9 +52,11 @@ class UserController extends Controller
             return response()->failed($request->validator->errors());
         }
 
-        $dataInput = $request->only(['email', 'nama', 'password', 'foto','user_roles_id']);
+        $dataInput = $request->only(['email', 'nama', 'password', 'user_roles_id']);
+        $foto64 = $request->fotoUrl;
+        $dataInput['foto'] = $this->upload_foto($request->nama, $foto64);
         $dataUser = $this->user->create($dataInput);
-        
+
         if (!$dataUser['status']) {
             return response()->failed($dataUser['error']);
         }
@@ -63,16 +65,24 @@ class UserController extends Controller
     }
 
 
-    public function upload_foto(Request $request)
+    public function upload_foto($nama, $image_64)
     {
-        $file = $request->file('foto');
-        $nama_file = time()."_".$file->getClientOriginalName();
-        $tujuan_upload = 'upload/foto_user/';
-        if ($file->move($tujuan_upload,$nama_file)) {
-            return response()->success($nama_file, 'Foto berhasil diupload');
-        } else {
-            return response()->failed(['Foto gagal diupload']);
+        $extension = explode('/', explode(':', substr($image_64, 0, strpos($image_64, ';')))[1])[1];   // .jpg .png .pdf
+        $replace = substr($image_64, 0, strpos($image_64, ',') + 1);
+
+        // find substring fro replace here eg: data:image/png;base64,
+        $image = str_replace($replace, '', $image_64);
+        $image = str_replace(' ', '+', $image);
+        $nama = str_replace(' ', '-', $nama);
+        $imageName = 'upload/foto_user/'.$nama.'.'. $extension;
+
+        // delete if imagename exists
+        if (file_exists(public_path(). '/' . $imageName)) {
+            unlink(public_path(). '/' . $imageName);
         }
+
+        file_put_contents(public_path(). '/' . $imageName, base64_decode($image));
+        return $imageName;
     }
 
     /**
@@ -106,7 +116,9 @@ class UserController extends Controller
             return response()->failed($request->validator->errors());
         }
 
-        $dataInput = $request->only(['email', 'nama', 'password', 'id', 'foto','user_roles_id']);
+        $dataInput = $request->only(['email', 'nama', 'password', 'id', 'user_roles_id']);
+        $foto64 = $request->fotoUrl;
+        $dataInput['foto'] = $this->upload_foto($request->nama, $foto64);
         $dataUser = $this->user->update($dataInput, $dataInput['id']);
 
         if (!$dataUser['status']) {

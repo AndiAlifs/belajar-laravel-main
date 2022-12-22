@@ -1,3 +1,4 @@
+import { toBase64String } from '@angular/compiler/src/output/source_map';
 import { Component, Input, OnInit, Output, SimpleChange, EventEmitter } from '@angular/core';
 
 import { LandaService } from 'src/app/core/services/landa.service';
@@ -28,6 +29,7 @@ export class FormUserComponent implements OnInit {
         password: string,
         user_roles_id: number
     }
+    cardImageBase64: string = null;
 
     constructor(
         private userService: UserService,
@@ -68,25 +70,9 @@ export class FormUserComponent implements OnInit {
     save() {
         // set akses id
         this.formModel.user_roles_id = this.formModel.akses.id; 
+        this.formModel.fotoUrl = this.cardImageBase64;
+        console.log(this.formModel);
         if(this.mode == 'add') {
-
-            console.log(this.formModel);
-            if (this.fileToUpload != null) {
-                console.log(this.fileToUpload);
-
-                const formData = {
-                    file: this.fileToUpload
-                }
-
-                console.log(formData);
-                this.userService.uploadFoto(formData).subscribe((res: any) => {
-                    this.formModel.foto = res.data;
-                }
-                , err => {
-                    console.log(err);
-                }
-                );
-            }
             this.userService.createUser(this.formModel).subscribe((res : any) => {
                 this.landaService.alertSuccess('Berhasil', res.message);
                 this.afterSave.emit();
@@ -106,7 +92,6 @@ export class FormUserComponent implements OnInit {
     getRole() {
         this.roleService.getRoles([]).subscribe((res: any) => {
             this.listAkses = res.data.list;
-            console.log(this.listAkses);
         }, err => {
             console.log(err);
         })
@@ -120,10 +105,18 @@ export class FormUserComponent implements OnInit {
         });
     }
 
-    onFileChange(event) {
-        if (event.target.files.length > 0) {
-            this.fileToUpload = event.target.files[0];
+    onFileChange($event) {
+        this.fileToUpload = $event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+            const image = new Image();
+            image.src = e.target.result;
+            image.onload = rs => {
+                const imgBase64Path = e.target.result;
+                this.cardImageBase64 = imgBase64Path;
+            }
         }
+        reader.readAsDataURL(this.fileToUpload);
     }
 
 }

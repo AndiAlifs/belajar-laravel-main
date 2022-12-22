@@ -67,19 +67,7 @@ class UserHelper implements CrudInterface
     {
         try {
             $payload['password'] = Hash::make($payload['password']);
-            
-            /**
-             * Jika dalam payload terdapat base64 foto, maka Upload foto ke folder storage/app/upload/fotoUser
-             */
-            if (!empty($payload['foto'])) {
-                /**
-                 * Parameter kedua ("gcs") digunakan untuk upload ke Google Cloud Service
-                 * jika mau upload di server local, maka tidak usah pakai parameter kedua
-                 */
-                $foto = $payload['foto']->store('upload/foto_user');
-                $payload['foto'] = $foto;
-            }
-            
+
             $user = $this->userModel->store($payload);
             return [
                 'status' => true,
@@ -113,19 +101,6 @@ class UserHelper implements CrudInterface
             } else {
                 unset($payload['password']);
             }
-            /**
-             * Jika dalam payload terdapat base64 foto, maka Upload foto ke folder storage/app/upload/fotoUser
-             */
-            if (!empty($payload['foto'])) {
-                /**
-                 * Parameter kedua ("gcs") digunakan untuk upload ke Google Cloud Service, jika mau upload di server local, maka tidak usah pakai parameter kedua
-                 */
-                $foto = $payload['foto']->store('upload/fotoUser', 'gcs');
-                $payload['foto'] = $foto;
-            } else {
-                unset($payload['foto']); // Jika foto kosong, hapus dari array agar tidak diupdate
-            }
-
             $this->userModel->edit($payload, $id);
             return [
                 'status' => true,

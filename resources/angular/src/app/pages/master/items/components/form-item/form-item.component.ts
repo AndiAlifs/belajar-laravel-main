@@ -33,6 +33,9 @@ export class FormItemComponent implements OnInit {
     listTipeDetail: any;
     noImageLink = 'http://127.0.0.1:8000/assets/img/no-image.png';
 
+    fileToUpload: File = null;
+    cardImageBase64: string = null;
+
     constructor(
         private itemService: ItemService,
         private landaService: LandaService
@@ -85,6 +88,9 @@ export class FormItemComponent implements OnInit {
     }
 
     save() {
+        if(this.fileToUpload != null) {
+            this.formModel.fotoUrl = this.cardImageBase64;
+        }
         if(this.mode == 'add') {
             this.itemService.createItem(this.formModel).subscribe((res : any) => {
                 this.landaService.alertSuccess('Berhasil', res.message);
@@ -134,5 +140,19 @@ export class FormItemComponent implements OnInit {
 
     back() {
         this.afterSave.emit();
+    }
+
+    onFileChange($event) {
+        this.fileToUpload = $event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+            const image = new Image();
+            image.src = e.target.result;
+            image.onload = rs => {
+                const imgBase64Path = e.target.result;
+                this.cardImageBase64 = imgBase64Path;
+            }
+        }
+        reader.readAsDataURL(this.fileToUpload);
     }
 }

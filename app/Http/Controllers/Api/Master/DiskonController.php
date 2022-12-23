@@ -79,7 +79,7 @@ class DiskonController extends Controller
     {
         $id_user = $request->id_user;
         $id_promo = $request->id_promo;
-        $status = $request->status;
+        $status = ($request->status == 'true' ? 1 : 0);
 
         $result = DiskonModel::firstorCreate([
             'id_user' => $id_user,

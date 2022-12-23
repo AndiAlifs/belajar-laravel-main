@@ -13,4 +13,8 @@ export class DiskonService {
   public getFirst() {
     return this.landaService.DataGet('/v1/diskon')
   }
+
+  public updateDiskonStatus(payload) {
+    return this.landaService.DataPost('/v1/diskon/', payload)
+  }
 }

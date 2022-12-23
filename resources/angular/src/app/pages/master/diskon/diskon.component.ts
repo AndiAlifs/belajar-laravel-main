@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { LandaService } from 'src/app/core/services/landa.service';
 import { DiskonService } from './diskon.service';
 
 @Component({
@@ -13,22 +15,37 @@ export class DiskonComponent implements OnInit {
 
     constructor(
         private diskonService: DiskonService,
+        private form: FormsModule,
+        private landaService: LandaService
     ) { }
 
     ngOnInit(): void {
         this.diskonService.getFirst().subscribe((res: any) => {
             this.allDiskon = res.diskon;
             this.allCustomer = res.customer;
-            console.log(this.allCustomer);
         }, (err: any) => {
             console.log(err);
         }
         )
     }
 
-    checkIfDiskonIncluded(diskon, diskonList){
-        let allIds = diskonList.map((item) => {return item.id_promo; });
+    checkIfDiskonIncluded(diskon, diskonList) {
+        let allIds = diskonList.map((item) => { return item.id_promo; });
         return allIds.includes(diskon.id_promo);
     }
 
+    changeValue(event, diskon, customer) {
+        let payload = {
+            status: event.target.checked,
+            id_promo: diskon.id_promo,
+            id_user: customer.id_user
+        }
+        this.diskonService.updateDiskonStatus(payload).subscribe((res: any) => {
+            console.log(res);
+            this.landaService.alertSuccess('Berhasil', res.message);
+        }, (err: any) => {
+            console.log(err);
+        }
+        )
+    }
 }

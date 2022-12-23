@@ -19,12 +19,7 @@
                             <tr *ngFor="let cust of allCustomer">
                                 <td>{{cust.nama}}</td>
                                 <td *ngFor="let val of allDiskon">
-                                    <div *ngIf="checkIfDiskonIncluded(val,cust.diskon)">
-                                        ✅
-                                    </div>
-                                    <div *ngIf="!checkIfDiskonIncluded(val,cust.diskon)">
-                                        ❌
-                                    </div>
+                                    <input class="form-check-input" type="checkbox" (change)="changeValue($event,val,cust)" [checked]="checkIfDiskonIncluded(val,cust.diskon)">
                                 </td>
                             </tr>                            
                         </tbody>

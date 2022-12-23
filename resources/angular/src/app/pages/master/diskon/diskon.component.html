@@ -18,7 +18,7 @@
                         <tbody>
                             <tr *ngFor="let cust of allCustomer">
                                 <td>{{cust.nama}}</td>
-                                <td *ngFor="let val of allDiskon">
+                                <td *ngFor="let val of allDiskon" class="text-center">
                                     <input class="form-check-input" type="checkbox" (change)="changeValue($event,val,cust)" [checked]="checkIfDiskonIncluded(val,cust.diskon)">
                                 </td>
                             </tr>                            

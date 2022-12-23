@@ -31,6 +31,7 @@ export class FormItemComponent implements OnInit {
         ]
     };
     listTipeDetail: any;
+    noImageLink = 'http://127.0.0.1:8000/assets/img/no-image.png';
 
     constructor(
         private itemService: ItemService,
@@ -53,7 +54,7 @@ export class FormItemComponent implements OnInit {
             kategori: '',
             harga: 0,
             deskripsi: '',
-            foto: '',
+            foto: this.noImageLink,
             fotoUrl: '',
             is_available: 1,
             detail: [
@@ -104,6 +105,9 @@ export class FormItemComponent implements OnInit {
     getItem(itemId) {
         this.itemService.getItemById(itemId).subscribe((res: any) => {
             this.formModel = res.data;
+            if(this.formModel.foto == null) {
+                this.formModel.foto = this.noImageLink;
+            }
         }, err => {
             console.log(err);
         });

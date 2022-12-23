@@ -19,6 +19,7 @@
                     <table class="table table-hover">
                         <thead class="thead-light">
                             <tr>
+                                <td style="width: 1px;">Gambar</td>
                                 <td>Nama</td>
                                 <td>Kategori</td>
                                 <td>Harga</td>
@@ -31,6 +32,9 @@
                                 currentPage: this.pagination.nowPage,
                                 totalItems: this.pagination.totalData
                             }; index as i; trackBy:trackByIndex">
+                                <td class="vertical-middle" *ngIf="val.foto != null; else no_image">
+                                    <img src="{{val.foto}}" alt="" width="100">
+                                </td>
                                 <td class="vertical-middle">{{val.nama}}</td>
                                 <td class="vertical-middle">{{val.kategori}}</td>
                                 <td class="vertical-middle">{{val.harga | currency:'IDR'}}</td>
@@ -90,4 +94,10 @@
         <button type="button" class="btn btn-primary" (click)="getItem(); modal.close()">Reset</button>
         <button type="button" class="btn btn-secondary" (click)="modal.close(); modal.close()">Cari</button>
     </div>
+</ng-template>
+
+<ng-template #no_image>
+    <td class="vertical-middle">
+        <img src="http://127.0.0.1:8000/assets/img/no-image.png" alt="" width="100">
+    </td>
 </ng-template>

@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Master\CustomerController;
 use App\Http\Controllers\Api\Master\DiskonController;
 use App\Http\Controllers\Api\Master\ItemController;
 use App\Http\Controllers\Api\Master\PromoController;
+use App\Http\Controllers\Api\Master\VoucherController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -59,8 +60,13 @@ Route::prefix('v1')->group(function () {
     Route::delete('/items/{id}', [ItemController::class, 'destroy'])->middleware(['web', 'auth.api:item_delete']);
 
     Route::post('/promo', [PromoController::class, 'createPromo'])->middleware(['web', 'auth.api:promo_create']);
+    Route::get('/promo_voucher', [PromoController::class, 'getVoucherPromo'])->middleware(['web', 'auth.api:promo_view']);
+    
     Route::get('/diskon', [DiskonController::class, 'index'])->middleware(['web', 'auth.api:diskon_view']);
     Route::post('/diskon', [DiskonController::class, 'updateStatusDiskon'])->middleware(['web', 'auth.api:diskon_update']);
+
+    Route::get('/voucher', [VoucherController::class, 'index'])->middleware(['web', 'auth.api']);
+
 
     /**
      * Route khusus authentifikasi

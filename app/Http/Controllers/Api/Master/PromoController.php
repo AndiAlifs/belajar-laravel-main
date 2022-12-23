@@ -11,7 +11,7 @@ class PromoController extends Controller
     public function getVoucherPromo()
     {
         $promo = PromoModel::where('type', 'voucher')->get();
-        return $promo;
+        return response()->success($promo, 'Success');
     }
 
     public function getDiscountPromo()
@@ -20,7 +20,7 @@ class PromoController extends Controller
         return $promo;
     }
 
-    public function getPromoById($id)
+    public static function getPromoById($id)
     {
         $promo = PromoModel::find($id);
         return $promo;

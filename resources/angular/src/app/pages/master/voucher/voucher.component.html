@@ -1,1 +1,49 @@
-<p>voucher works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h1>
+                        Daftar Voucher
+                    </h1>
+                    <div role="group" class="btn-group btn-group-sm btn-group-justified blocks">
+                        <button  type="button" class="btn btn-sm btn-outline-secondary mr-2" >
+                            <i class="fa fa-search font-size-14 align-middle mr-1"></i> Pencarian 
+                        </button>
+                        <button type="button" class="btn btn-sm btn-primary mr-2" >
+                            <i class="fa fa-plus font-size-14 align-middle mr-1"></i> Tambah Voucher 
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <td>Customer</td>
+                                <td>Voucher</td>
+                                <td>Nominal</td>
+                                <td>Periode Mulai</td>
+                                <td>Periode Selesai</td>
+                                <td [width]="90"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let voucher of listVoucher">
+                                <td>{{voucher.nama_cust}}</td>
+                                <td>{{voucher.nama_promo}}</td>
+                                <td>Rp. {{voucher.nominal}}</td>
+                                <td>{{voucher.periode_mulai}}</td>
+                                <td>{{voucher.periode_selesai}}</td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

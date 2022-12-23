@@ -61,7 +61,7 @@ class DiskonController extends Controller
 
     public function returnAllAcquiredDiskon($id_user)
     {
-        $result = DiskonModel::where('id_user', $id_user)->get();
+        $result = DiskonModel::where('id_user', $id_user)->where('status',1)->get();
         $returnedResult = [];
         foreach ($result as $r) {
             $id_promo = $r->id_promo;

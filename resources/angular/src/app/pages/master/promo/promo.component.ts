@@ -42,7 +42,7 @@ export class PromoComponent implements OnInit {
     }
 
     save() {
-        this.promoService.createPromo(this.formModel).subscribe((res:any) => {
+        this.promoService.createPromo(this.formModel).subscribe((res: any) => {
             this.landaService.alertSuccess('Berhasil', res.message);
             this.emptyForm();
         }, err => {

@@ -11,6 +11,10 @@ export class VoucherService {
   ) { }
 
   getVoucher() {
-    return this.landaService.DataGet('/v1/voucher', {});
+    return this.landaService.DataGet('/v1/voucher');
+  }
+
+  getAvailableVoucher() {
+    return this.landaService.DataGet('/v1/promo_voucher');
   }
 }

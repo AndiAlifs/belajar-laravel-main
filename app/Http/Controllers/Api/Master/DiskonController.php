@@ -28,10 +28,10 @@ class DiskonController extends Controller
             ];
         }
 
-        $allAvailableDiskom = $this->returnAllUniqueDiskonId();
+        $allAvailableDiskon = $this->returnAllUniqueDiskonId();
 
         $returnedData['customer'] = $returnedResult;
-        $returnedData['diskon'] = $allAvailableDiskom;
+        $returnedData['diskon'] = $allAvailableDiskon;
 
         return response()->json($returnedData);
     }   
@@ -45,7 +45,7 @@ class DiskonController extends Controller
 
     public function returnAllUniqueDiskonId()
     {
-        $result = DiskonModel::select('id_promo')->distinct()->get();
+        $result = PromoModel::where('type', 'diskon')->get();
         $returnedResult = [];
         foreach ($result as $r) {
             $id_promo = $r->id_promo;
@@ -73,5 +73,21 @@ class DiskonController extends Controller
         }
 
         return $returnedResult;
+    }
+
+    public function updateStatusDiskon(Request $request)
+    {
+        $id_user = $request->id_user;
+        $id_promo = $request->id_promo;
+        $status = $request->status;
+
+        $result = DiskonModel::firstorCreate([
+            'id_user' => $id_user,
+            'id_promo' => $id_promo
+        ]);
+        $result->status = $status;
+        $result->save();
+
+        return response()->success($result, 'Berhasil mengubah status diskon');
     }
 }

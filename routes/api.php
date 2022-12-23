@@ -60,6 +60,7 @@ Route::prefix('v1')->group(function () {
 
     Route::post('/promo', [PromoController::class, 'createPromo'])->middleware(['web', 'auth.api:promo_create']);
     Route::get('/diskon', [DiskonController::class, 'index'])->middleware(['web', 'auth.api:diskon_view']);
+    Route::post('/diskon', [DiskonController::class, 'updateStatusDiskon'])->middleware(['web', 'auth.api:diskon_update']);
 
     /**
      * Route khusus authentifikasi

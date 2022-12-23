@@ -11,10 +11,10 @@ class DiskonModel extends Model
 
     protected $table = 'm_diskon';
 
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_diskon';
 
 
-    public $timestamps = true;
+    public $timestamps = false;
 
     protected $guarded = [];
 }

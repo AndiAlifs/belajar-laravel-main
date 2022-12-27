@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { LandaService } from 'src/app/core/services/landa.service';
 import { DiskonService } from './diskon.service';
 
+
 @Component({
     selector: 'app-diskon',
     templateUrl: './diskon.component.html',
@@ -21,17 +22,35 @@ export class DiskonComponent implements OnInit {
 
     ngOnInit(): void {
         this.diskonService.getFirst().subscribe((res: any) => {
-            this.allDiskon = res.diskon;
             this.allCustomer = res.customer;
+
+            this.allCustomer.forEach(cust => {
+                this.diskonService.getDiskonByCustomer(cust.id_user).subscribe((res: any) => {
+                    cust.diskon = res.data;
+                }, (err: any) => {
+                    console.log(err);
+                });
+            });
+            
         }, (err: any) => {
             console.log(err);
-        }
-        )
+        });
+
+        this.diskonService.getAllAvailableDiskon().subscribe((res: any) => {
+            this.allDiskon = res.data;
+        }, (err: any) => {
+            console.log(err);
+        });
     }
 
     checkIfDiskonIncluded(diskon, diskonList) {
-        let allIds = diskonList.map((item) => { return item.id_promo; });
-        return allIds.includes(diskon.id_promo);
+        try {
+            let allIds = diskonList.map(diskon => diskon.id_promo);
+            return allIds.includes(diskon.id_promo);
+        }
+        catch (err) {
+            return false;
+        }
     }
 
     changeValue(event, diskon, customer) {

@@ -63,6 +63,8 @@ Route::prefix('v1')->group(function () {
     Route::get('/promo_voucher', [PromoController::class, 'getVoucherPromo'])->middleware(['web', 'auth.api:promo_view']);
     
     Route::get('/diskon', [DiskonController::class, 'index'])->middleware(['web', 'auth.api:diskon_view']);
+    Route::get('/diskon/available', [DiskonController::class, 'returnAllDiskonId'])->middleware(['web', 'auth.api:diskon_view']);
+    Route::get('/diskon/{user_id}', [DiskonController::class, 'returnAllAcquiredDiskon'])->middleware(['web', 'auth.api:diskon_view']);
     Route::post('/diskon', [DiskonController::class, 'updateStatusDiskon'])->middleware(['web', 'auth.api:diskon_update']);
 
     Route::get('/voucher', [VoucherController::class, 'index'])->middleware(['web', 'auth.api']);

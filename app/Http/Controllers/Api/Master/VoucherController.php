@@ -27,4 +27,11 @@ class VoucherController extends Controller
 
         return response()->success($allVoucher, 'Success');
     }
+
+    public function getAllCustomer()
+    {
+        $allCust = VoucherModel::getAllCustomer();
+
+        
+    }
 }

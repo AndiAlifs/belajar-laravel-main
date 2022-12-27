@@ -13,37 +13,28 @@ class DiskonController extends Controller
 
     public function index()
     {   
-        $returnedResult = [];
-        $allCustomer = $this->returnAllUniqueCustomerId();
-
-        foreach ($allCustomer as $custID) {
-            $id_user = $custID->id_user;
-            $userName = UserController::getUserFromId($id_user)->nama;
-            $allDiskon = $this->returnAllAcquiredDiskon($id_user);
-            
-            $returnedResult[] = [
-                'id_user' => $id_user,
-                'nama' => $userName,
-                'diskon' => $allDiskon
-            ];
-        }
-
-        $allAvailableDiskon = $this->returnAllUniqueDiskonId();
-
-        $returnedData['customer'] = $returnedResult;
-        $returnedData['diskon'] = $allAvailableDiskon;
+        $allCustomer = $this->returnAllUniqueCustomer();
+        $returnedData['customer'] = $allCustomer;
 
         return response()->json($returnedData);
     }   
 
-    public function returnAllUniqueCustomerId()
+    public function returnAllUniqueCustomer()
     {
+        $returnedResult = [];
         $result = DiskonModel::select('id_user')->distinct()->get();
+        foreach ($result as $r) {
+            $nama = UserController::getUserFromId($r->id_user)->nama;
+            $returnedResult[] = [
+                'id_user' => $r->id_user,
+                'nama' => $nama
+            ];
+        }
 
-        return $result;
+        return $returnedResult;
     }
 
-    public function returnAllUniqueDiskonId()
+    public function returnAllDiskonId()
     {
         $result = PromoModel::where('type', 'diskon')->get();
         $returnedResult = [];
@@ -56,7 +47,7 @@ class DiskonController extends Controller
             ];
         }
 
-        return $returnedResult;
+        return response()->success($returnedResult, 'Berhasil mengambil data diskon');
     }
 
     public function returnAllAcquiredDiskon($id_user)
@@ -72,7 +63,7 @@ class DiskonController extends Controller
             ];
         }
 
-        return $returnedResult;
+        return response()->success($returnedResult, 'Berhasil mengambil data diskon');
     }
 
     public function updateStatusDiskon(Request $request)

@@ -57,6 +57,6 @@
     </div>
     <div class="modal-body">
         <!-- <user-form [userId]="modelId" (afterSave)="modal.close(); getUser()"></user-form> -->
-        <form-voucher></form-voucher>
+        <form-voucher (afterSave)="modal.close(); getData()"></form-voucher>
     </div>
 </ng-template>

@@ -17,4 +17,12 @@ export class VoucherService {
   getAvailableVoucher() {
     return this.landaService.DataGet('/v1/promo_voucher');
   }
+
+  getAllCustomer() {
+    return this.landaService.DataGet('/v1/voucher/customer');
+  }
+
+  createVoucher(payload) {
+    return this.landaService.DataPost('/v1/voucher', payload);
+  }
 }

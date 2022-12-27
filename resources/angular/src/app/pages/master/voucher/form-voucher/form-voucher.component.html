@@ -2,7 +2,7 @@
     <div class="form-group row">
         <label class="col-md-4 required">Nama Customer</label>
         <div class="col-md-8">
-            <ng-select [(ngModel)]="formModel.id_promo" [items]="availableVoucher" bindLabel="nama" bindValue="id_promo" placeholder="Pilih Jenis Voucher" name="akses" appendTo="body" (change)="updateNominal()"></ng-select>
+            <ng-select [(ngModel)]="formModel.id_user" [items]="allCustomer" bindLabel="nama" bindValue="id_user" placeholder="Pilih Jenis Voucher" name="akses" appendTo="body"></ng-select>
         </div>
     </div>
     <div class="form-group row">
@@ -21,6 +21,18 @@
                 <input [(ngModel)]="formModel.nominal" type="text" name="harga" class="form-control"
                     placeholder="Nominal Voucher">
             </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 required">Periode Mulai</label>
+        <div class="col-md-8">
+            <input type="date" [(ngModel)]="formModel.periode_mulai" name="periode_mulai" id="periode_mulai" class="form-control" (change)="updateDateSelesai()">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 required">Periode Selesai</label>
+        <div class="col-md-8">
+            <input type="date" [(ngModel)]="formModel.periode_selesai" name="periode_selesai" id="periode_selesai" class="form-control">
         </div>
     </div>
     <div class="form-group row">

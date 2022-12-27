@@ -28,4 +28,16 @@ class VoucherController extends Controller
         $allCustomer = UserModel::getAllCustomerNoPage();
         return response()->success($allCustomer, 'Success');
     }
+
+    public function create(Request $request)
+    {
+        if ($request->model_id == 0) {
+            $voucher = VoucherModel::create($request->except('model_id'));
+        }
+        if ($voucher) {
+            return response()->success($voucher, 'Voucher Berhasil Ditambahkan');
+        } else {
+            return response()->error('Voucher Gagal Ditambahkan');
+        }
+    }
 }

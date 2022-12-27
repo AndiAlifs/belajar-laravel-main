@@ -10,6 +10,7 @@ import { LandaService } from 'src/app/core/services/landa.service';
 export class FormVoucherComponent implements OnInit {
 
   availableVoucher: any;
+  allCustomer: any;
 
   formModel = {
     id: 0,
@@ -28,6 +29,8 @@ export class FormVoucherComponent implements OnInit {
     }, (error) => {
       this.LandaService.alertError("Terjadi Kesalahan", error.message);
     });
+
+    
   }
 
   updateNominal() {

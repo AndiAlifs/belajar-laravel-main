@@ -171,4 +171,9 @@ class UserModel extends Authenticatable implements JWTSubject, ModelInterface
     {   
         return DB::table('m_user')->where('nama','like','%'.$filter['nama'].'%')->paginate($paginate);
     }
+
+    public static function getAllCustomerNoPage()
+    {   
+        return DB::table('m_user')->get();
+    }
 }

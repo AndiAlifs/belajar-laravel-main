@@ -32,7 +32,7 @@ export class VoucherComponent implements OnInit {
 
     getData() {
         this.voucherService.getVoucher().subscribe((res: any) => {
-            this.listVoucher = res.data;
+            this.listVoucher = res.data.list;
         }, (error) => {
             this.LandaService.alertError("Terjadi Kesalahan", error.message);
         });

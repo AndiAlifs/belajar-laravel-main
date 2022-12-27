@@ -60,14 +60,16 @@ Route::prefix('v1')->group(function () {
     Route::delete('/items/{id}', [ItemController::class, 'destroy'])->middleware(['web', 'auth.api:item_delete']);
 
     Route::post('/promo', [PromoController::class, 'createPromo'])->middleware(['web', 'auth.api:promo_create']);
+    
     Route::get('/promo_voucher', [PromoController::class, 'getVoucherPromo'])->middleware(['web', 'auth.api:promo_view']);
     
     Route::get('/diskon', [DiskonController::class, 'index'])->middleware(['web', 'auth.api:diskon_view']);
     Route::get('/diskon/available', [DiskonController::class, 'returnAllDiskonId'])->middleware(['web', 'auth.api:diskon_view']);
     Route::get('/diskon/{user_id}', [DiskonController::class, 'returnAllAcquiredDiskon'])->middleware(['web', 'auth.api:diskon_view']);
     Route::post('/diskon', [DiskonController::class, 'updateStatusDiskon'])->middleware(['web', 'auth.api:diskon_update']);
-
+    
     Route::get('/voucher', [VoucherController::class, 'index'])->middleware(['web', 'auth.api']);
+    Route::get('/voucher/customer', [VoucherController::class, 'indexCustomer'])->middleware(['web', 'auth.api:promo_view']);
 
 
     /**

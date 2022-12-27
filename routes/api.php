@@ -71,6 +71,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/voucher', [VoucherController::class, 'index'])->middleware(['web', 'auth.api']);
     Route::get('/voucher/customer', [VoucherController::class, 'indexCustomer'])->middleware(['web', 'auth.api:promo_view']);
     Route::post('/voucher', [VoucherController::class, 'create'])->middleware(['web', 'auth.api:promo_create']);
+    Route::delete('/voucher/delete/{id_voucher}', [VoucherController::class, 'delete'])->middleware(['web', 'auth.api:promo_delete']);
 
     /**
      * Route khusus authentifikasi

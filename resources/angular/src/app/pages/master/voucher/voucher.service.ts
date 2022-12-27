@@ -25,4 +25,8 @@ export class VoucherService {
   createVoucher(payload) {
     return this.landaService.DataPost('/v1/voucher', payload);
   }
+
+  deleteVoucher(id_voucher) {
+    return this.landaService.DataDelete('/v1/voucher/delete/' + id_voucher);
+  }
 }

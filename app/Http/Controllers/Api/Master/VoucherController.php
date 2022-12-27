@@ -40,4 +40,14 @@ class VoucherController extends Controller
             return response()->error('Voucher Gagal Ditambahkan');
         }
     }
+
+    public function delete($id_voucher)
+    {
+        $voucher = VoucherModel::find($id_voucher);
+        if ($voucher->delete()) {
+            return response()->success($voucher, 'Voucher Berhasil Dihapus');
+        } else {
+            return response()->error('Voucher Gagal Dihapus');
+        }
+    }
 }

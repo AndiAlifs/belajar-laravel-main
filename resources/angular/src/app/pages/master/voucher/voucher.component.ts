@@ -14,6 +14,11 @@ export class VoucherComponent implements OnInit {
     listVoucher: any;
     titleModal: string;
 
+    pagination = {
+        nowPage: 1,
+        totalData: 0,
+    };
+
     constructor(
         private LandaService: LandaService,
         private voucherService: VoucherService,
@@ -31,10 +36,18 @@ export class VoucherComponent implements OnInit {
     }
 
     getData() {
-        this.voucherService.getVoucher().subscribe((res: any) => {
+        this.voucherService.getVoucher({
+            page: this.pagination.nowPage
+        }).subscribe((res: any) => {
             this.listVoucher = res.data.list;
+            this.pagination.totalData = res.data.meta.total;
         }, (error) => {
             this.LandaService.alertError("Terjadi Kesalahan", error.message);
         });
+    }
+
+    onPaginationChange(event) {
+        this.pagination.nowPage = event;
+        this.getData();
     }
 }

@@ -10,8 +10,8 @@ export class VoucherService {
     private landaService: LandaService,
   ) { }
 
-  getVoucher() {
-    return this.landaService.DataGet('/v1/voucher');
+  getVoucher(payload) {
+    return this.landaService.DataGet('/v1/voucher', payload);
   }
 
   getAvailableVoucher() {

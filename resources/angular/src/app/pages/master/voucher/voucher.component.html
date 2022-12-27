@@ -28,7 +28,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let voucher of listVoucher">
+                            <tr *ngFor="let voucher of listVoucher | paginate: {
+                                itemsPerPage: 5,
+                                currentPage: this.pagination.nowPage,
+                                totalItems: this.pagination.totalData
+                            }">
                                 <td>{{voucher.nama_cust}}</td>
                                 <td>{{voucher.nama_promo}}</td>
                                 <td>Rp. {{voucher.nominal}}</td>
@@ -43,6 +47,9 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="card-footer d-flex justify-content-center">
+                    <pagination-controls [responsive]="true" (pageChange)="onPaginationChange($event)"></pagination-controls>
+            </div>
             </div>
         </div>
     </div>

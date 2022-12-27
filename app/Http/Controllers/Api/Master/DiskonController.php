@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Master;
 
 use App\Http\Controllers\Api\User\UserController;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\DiskonCollection;
 use App\Models\Master\DiskonModel;
 use App\Models\Master\PromoModel;
 use Illuminate\Http\Request;
@@ -13,25 +14,16 @@ class DiskonController extends Controller
 
     public function index()
     {   
-        $allCustomer = $this->returnAllUniqueCustomer();
-        $returnedData['customer'] = $allCustomer;
-
-        return response()->json($returnedData);
+        $filter['nama'] = request()->get('nama')? request()->get('nama') : '%';
+        $allCustomer = $this->returnAllUniqueCustomer($filter);
+        
+        return response()->success(new DiskonCollection($allCustomer), 'Berhasil mengambil data diskon');
     }   
 
-    public function returnAllUniqueCustomer()
+    public function returnAllUniqueCustomer($filter)
     {
-        $returnedResult = [];
-        $result = DiskonModel::select('id_user')->distinct()->get();
-        foreach ($result as $r) {
-            $nama = UserController::getUserFromId($r->id_user)->nama;
-            $returnedResult[] = [
-                'id_user' => $r->id_user,
-                'nama' => $nama
-            ];
-        }
-
-        return $returnedResult;
+        $result = DiskonModel::getAllCustomer($filter);
+        return $result;
     }
 
     public function returnAllDiskonId()

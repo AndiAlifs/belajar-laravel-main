@@ -10,8 +10,8 @@ export class DiskonService {
     private landaService: LandaService,
   ) { }
 
-  public getFirst() {
-    return this.landaService.DataGet('/v1/diskon')
+  public getIndex(payload) {
+    return this.landaService.DataGet('/v1/diskon', payload)
   }
 
   public updateDiskonStatus(payload) {

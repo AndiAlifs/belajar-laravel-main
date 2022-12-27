@@ -102,7 +102,6 @@ export class DaftarItemComponent implements OnInit {
     }
 
     onPaginationChange(event) {
-        console.log(event);
         this.pagination.nowPage = event;
         this.getItem();
     }

@@ -14,6 +14,13 @@ export class DiskonComponent implements OnInit {
     allDiskon: any = [];
     allCustomer: any = [];
 
+    pagination = {
+        nowPage: 1,
+        totalData: 0,
+    };
+
+    findStr = '';
+
     constructor(
         private diskonService: DiskonService,
         private form: FormsModule,
@@ -21,8 +28,22 @@ export class DiskonComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.diskonService.getFirst().subscribe((res: any) => {
-            this.allCustomer = res.customer;
+        this.getCustomer();
+
+        this.diskonService.getAllAvailableDiskon().subscribe((res: any) => {
+            this.allDiskon = res.data;
+        }, (err: any) => {
+            console.log(err);
+        });
+    }
+
+    getCustomer() {
+        this.diskonService.getIndex({
+            page: this.pagination.nowPage,
+            nama: this.findStr
+        }).subscribe((res: any) => {
+            this.allCustomer = res.data.customer;
+            this.pagination.totalData = res.data.meta.total;
 
             this.allCustomer.forEach(cust => {
                 this.diskonService.getDiskonByCustomer(cust.id_user).subscribe((res: any) => {
@@ -31,13 +52,6 @@ export class DiskonComponent implements OnInit {
                     console.log(err);
                 });
             });
-            
-        }, (err: any) => {
-            console.log(err);
-        });
-
-        this.diskonService.getAllAvailableDiskon().subscribe((res: any) => {
-            this.allDiskon = res.data;
         }, (err: any) => {
             console.log(err);
         });
@@ -60,11 +74,20 @@ export class DiskonComponent implements OnInit {
             id_user: customer.id_user
         }
         this.diskonService.updateDiskonStatus(payload).subscribe((res: any) => {
-            console.log(res);
             this.landaService.alertSuccess('Berhasil', res.message);
         }, (err: any) => {
             console.log(err);
         }
         )
+    }
+
+    onPaginationChange(event) {
+        this.pagination.nowPage = event;
+        this.getCustomer();
+    }
+
+    onSearch(event) {
+        console.log(event);
+        this.getCustomer();
     }
 }

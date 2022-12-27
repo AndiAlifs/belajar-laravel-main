@@ -1,5 +1,10 @@
 <form>
-    
+    <div class="form-group row">
+        <label class="col-md-4 required">Nama Customer</label>
+        <div class="col-md-8">
+            <ng-select [(ngModel)]="formModel.id_promo" [items]="availableVoucher" bindLabel="nama" bindValue="id_promo" placeholder="Pilih Jenis Voucher" name="akses" appendTo="body" (change)="updateNominal()"></ng-select>
+        </div>
+    </div>
     <div class="form-group row">
         <label class="col-md-4 required">Jenis Voucher</label>
         <div class="col-md-8">

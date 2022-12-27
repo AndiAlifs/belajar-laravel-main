@@ -8,6 +8,8 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
+
 
 /**
  * Class Model untuk tabel user_auth
@@ -163,5 +165,10 @@ class UserModel extends Authenticatable implements JWTSubject, ModelInterface
 
     public function drop(int $id) {
         return $this->find($id)->delete();
+    }
+
+    public static function getAllCustomer($filter,$paginate = 5)
+    {   
+        return DB::table('m_user')->where('nama','like','%'.$filter['nama'].'%')->paginate($paginate);
     }
 }

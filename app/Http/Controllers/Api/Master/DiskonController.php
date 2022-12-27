@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\DiskonCollection;
 use App\Models\Master\DiskonModel;
 use App\Models\Master\PromoModel;
+use App\Models\User\UserModel;
 use Illuminate\Http\Request;
 
 class DiskonController extends Controller
@@ -22,7 +23,7 @@ class DiskonController extends Controller
 
     public function returnAllUniqueCustomer($filter)
     {
-        $result = DiskonModel::getAllCustomer($filter);
+        $result = UserModel::getAllCustomer($filter);
         return $result;
     }
 

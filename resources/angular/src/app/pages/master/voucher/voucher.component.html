@@ -39,6 +39,9 @@
                                 <td>{{voucher.periode_mulai}}</td>
                                 <td>{{voucher.periode_selesai}}</td>
                                 <td>
+                                    <button class="btn btn-warning btn-sm mr-1" (click)="editVoucher(formTambah, voucher.id_voucher)">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
                                     <button class="btn btn-danger btn-sm" (click)="deleteVoucher(voucher.id_voucher)">
                                         <i class="fa fa-trash"></i>
                                     </button>
@@ -63,7 +66,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <!-- <user-form [userId]="modelId" (afterSave)="modal.close(); getUser()"></user-form> -->
-        <form-voucher (afterSave)="modal.close(); getData()"></form-voucher>
+        <!-- <user-form  (afterSave)="modal.close(); getUser()"></user-form> -->
+        <form-voucher [voucherId]="this.modelId" (afterSave)="modal.close(); getData()"></form-voucher>
     </div>
 </ng-template>

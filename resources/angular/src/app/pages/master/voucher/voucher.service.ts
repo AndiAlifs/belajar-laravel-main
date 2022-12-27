@@ -29,4 +29,12 @@ export class VoucherService {
   deleteVoucher(id_voucher) {
     return this.landaService.DataDelete('/v1/voucher/delete/' + id_voucher);
   }
+
+  updateVoucher(payload) {
+    return this.landaService.DataPut('/v1/voucher', payload);
+  }
+
+  getVoucherById(id_voucher) {
+    return this.landaService.DataGet('/v1/voucher/' + id_voucher);
+  }
 }

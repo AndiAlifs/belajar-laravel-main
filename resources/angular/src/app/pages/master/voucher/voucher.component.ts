@@ -14,6 +14,7 @@ export class VoucherComponent implements OnInit {
 
     listVoucher: any;
     titleModal: string;
+    modelId: number = 0;
 
     pagination = {
         nowPage: 1,
@@ -31,8 +32,15 @@ export class VoucherComponent implements OnInit {
         this.getData();
     }
 
+    editVoucher(modal, id_voucher) {
+        this.titleModal = 'Edit Voucher';
+        this.modelId = id_voucher;
+        this.modalService.open(modal, { size: 'lg', backdrop: 'static' });
+    }
+
     addVoucher(modal) {
         this.titleModal = 'Tambah Voucher';
+        this.modelId = 0;
         this.modalService.open(modal, { size: 'lg', backdrop: 'static' });
     }
 

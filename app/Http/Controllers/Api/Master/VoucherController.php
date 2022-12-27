@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Master;
 
 use App\Http\Controllers\Api\User\UserController;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Voucher\Voucher;
 use App\Http\Resources\Voucher\VoucherCollection;
 use App\Models\Master\VoucherModel;
 use App\Models\User\UserModel;
@@ -48,6 +49,34 @@ class VoucherController extends Controller
             return response()->success($voucher, 'Voucher Berhasil Dihapus');
         } else {
             return response()->error('Voucher Gagal Dihapus');
+        }
+    }
+
+    public function show($id_voucher)
+    {
+        $voucher = VoucherModel::find($id_voucher);
+        if ($voucher) {
+            return response()->success(new Voucher($voucher), 'Voucher Berhasil Ditemukan');
+        } else {
+            return response()->error('Voucher Gagal Ditemukan');
+        }
+    }
+
+    public function update(Request $request)
+    {
+        if ($request->model_id) {
+            $id_voucher = $request->model_id;
+
+            $voucher = VoucherModel::find($id_voucher);
+            $status = $voucher->update($request->except('model_id'));
+
+            if ($status) {
+                return response()->success($voucher, 'Voucher Berhasil Diubah');
+            } else {
+                return response()->error('Voucher Gagal Diubah');
+            }
+        } else {
+            return response()->error('Model ID tidak ditemukan');
         }
     }
 }
